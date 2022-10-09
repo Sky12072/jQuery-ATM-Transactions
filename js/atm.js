@@ -32,12 +32,12 @@ $(document).ready(function(){
     // code to handle hyphens in input
     if (savingsDepositInputString.includes("-")) {
       savingsDepositInputString= savingsDepositInputString.replace(/-/g, "");
-      console.log (savingsDepositInputString)
+      console.log ("savingsDepositInputString :", savingsDepositInputString)
     }
     let savingsDepositInput = Number(savingsDepositInputString)
 
-    console.log (typeof savingsDepositInput)
-    console.log (savingsDepositInput)
+    console.log ("savingsDepositInput" ,typeof savingsDepositInput)
+    console.log ("savingsDepositInput is: ",savingsDepositInput)
     array.push(savingsDepositInput)
     console.log("array is (deposit input): ", array)
     
@@ -56,14 +56,16 @@ $(document).ready(function(){
     // code to handle hyphens in input
     if (savingsWithdrawalInputString.includes("-")) {
       savingsWithdrawalInputString= savingsWithdrawalInputString.replace(/-/g, "");
-      console.log (savingsWithdrawalInputString)
+      console.log ("savingsWithdrawalInputString: ",savingsWithdrawalInputString)
     }
     savingsWithdrawalInput = Number(savingsWithdrawalInputString)
 
-    array.pop();
-    console.log (typeof savingsWithdrawalInput);
-    console.log (savingsWithdrawalInput)
-    console.log("array is(withdrawal input): ", array)
+
+    
+    console.log("array is (savingsWithdrawalInput): ", array)
+    console.log ("savingsWithdrawalInput: " ,typeof savingsWithdrawalInput);
+    console.log ("savingsWithdrawalInput: ",savingsWithdrawalInput)
+    
   });
 });
 
@@ -74,16 +76,21 @@ $(document).ready(function(){
 $(document).ready(function(){
   
   $("#savings-deposit").click(function(){
-    
+    const operation = (prevEntry, currentEntry) => {
+      return (prevEntry + currentEntry)
+    }
+    // savingsBalance = array.reduce((a,b) => a+b)
     savingsBalance = array.reduce((a,b) => a+b)
-    console.log("TOTAL is: ", savingsBalance)
+    console.log("TOTAL savingsBalance is: ", savingsBalance)
+    array.length = 0;
+    array.push(savingsBalance)
     
-    
-    $("#savings-balance").text(`$ ${savingsBalance}`); // code for display value to webpage
+    $("#savings-balance").html(`$ ${savingsBalance}`); // code for display value to webpage
     if (savingsBalance !== 0) {
       $("#savings-balance").css("background-color", "rgb(175, 174, 174")
     }
-    
+    let valueBack = $("savings-balance").attr('savings-balance');
+    console.log(valueBack);
     
   });
 });
@@ -93,11 +100,14 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   $("#savings-withdraw").click(function(){
+    console.log("====================")
     console.log ("overdraft protection Checking balance is: ", checkingBalance)
 
-    if (savingsBalance !== 0) {
+    if (savingsBalance > 0 && savingsBalance >= savingsWithdrawalInput) {
       
+      console.log("array is (substracting)): ", array)
       savingsBalance = savingsBalance - savingsWithdrawalInput;
+      // array.pop();
       console.log("SavingsBalance is: ", savingsBalance)    
       console.log("SavingsBalance is: ", typeof savingsBalance)    
       console.log("SsavingsWithdrawalInput is: ", savingsWithdrawalInput)    
@@ -107,28 +117,51 @@ $(document).ready(function(){
       if (savingsBalance === 0) {
         $("#savings-balance").css("background-color", "rgb(255, 62, 62)")
       }
-      
+      array.length = 0;
+      array.push(savingsBalance)
     }
     
     
     else if (savingsBalance === 0 && checkingBalance === 0)  {
       array = [];
-      console.log("array is (substracting): ", array)
+      checkingArray = [];
+      console.log("array is (substracting) but invalid One: ", array)
       console.log("SavingsBalance: ", savingsBalance)
       
     }
 
-    // // overdraft protection
-    else if (savingsBalance === 0 && checkingBalance > 0) {
+    // overdraft protection 1 - stop withdrawal, withdrawal amount is > savings balance
+    else if (savingsWithdrawalInput > savingsBalance && savingsWithdrawalInput > (savingsBalance + checkingBalance) ) {
+      console.log("array is (substracting) but invalid Two: ", array)
       
-      checkingArray.pop()
-      checkingBalance = checkingBalance - savingsWithdrawalInput;
-      console.log("CheckingBalance is: ", checkingBalance)    
+      return
       
-      $("#checking-balance").text(`$ ${checkingBalance}`);
+
+    }
+
+    // overdraft protection 2 -taking from checking account if sufficient
+    else if (savingsWithdrawalInput <= (savingsBalance + checkingBalance)  ) {
+      array.pop();
+      console.log("array is (substracting)): ", array)
+      let savingsNegativeBalance = savingsBalance - savingsWithdrawalInput;
+      console.log("savingsNegativeBalance One is: ",savingsNegativeBalance)
+      savingsNegativeBalance = String(savingsNegativeBalance).replace(/-/g, "")
+      savingsNegativeBalance = Number(savingsNegativeBalance);
+      console.log("savingsNegativeBalance Two is: ",savingsNegativeBalance)
+      savingsBalance = 0;
+      $("#savings-balance").text(`$ ${savingsBalance}`);
+      if (checkingBalance >= savingsNegativeBalance) {
+        array.pop();
+        checkingBalance = checkingBalance - savingsNegativeBalance
+        $("#checking-balance").text(`$ ${checkingBalance}`);
+      }
       if (checkingBalance === 0) {
         $("#checking-balance").css("background-color", "rgb(255, 62, 62)")
       }
+      if (savingsBalance === 0) {
+        $("#savings-balance").css("background-color", "rgb(255, 62, 62)")
+      }
+      
 
     }
 
@@ -172,13 +205,13 @@ $(document).ready(function(){
     // code to handle hyphens in input
     if (checkingDepositInputString.includes("-")) {
       checkingDepositInputString = checkingDepositInputString.replace(/-/g, "");
-      console.log (checkingDepositInputString)
+      console.log ("checkingDepositInputString: ",checkingDepositInputString)
     }
     let checkingDepositInput = Number(checkingDepositInputString)
 
 
-    console.log (typeof checkingDepositInput)
-    console.log (checkingDepositInput)
+    console.log ("checkingDepositInput is: ", typeof checkingDepositInput)
+    console.log ("checkingDepositInput: ",checkingDepositInput)
     checkingArray.push(checkingDepositInput)
     console.log("checkingArray is: ", checkingArray)
     
@@ -201,9 +234,10 @@ $(document).ready(function(){
     }
     checkingWithdrawalInput = Number(checkingWithdrawalInputString)
     
-    checkingArray.pop();
-    console.log (typeof checkingWithdrawalInput);
-    console.log (checkingWithdrawalInput);
+    
+
+    console.log ("checkingWithdrawalInput: ",typeof checkingWithdrawalInput);
+    console.log ("checkingWithdrawalInput: ",checkingWithdrawalInput);
     console.log("checkingArray is: ", checkingArray);
   });
 });
@@ -220,9 +254,9 @@ $(document).ready(function(){
   $("#checking-deposit").click(function(){
     
     checkingBalance = checkingArray.reduce((a,b) => a+b)
-    console.log("TOTAL is: ", checkingBalance)
-    
-    
+    console.log("TOTAL checkingBalance is: ", checkingBalance)
+    checkingArray.length = 0;
+    checkingArray.push(checkingBalance)
     $("#checking-balance").text(`$ ${checkingBalance}`);
     if (checkingBalance !== 0) {
       $("#checking-balance").css("background-color", "rgb(175, 174, 174")
@@ -232,7 +266,7 @@ $(document).ready(function(){
   });
 });
 
-// Substracting
+// // Substracting
 
 
 $(document).ready(function(){
@@ -240,8 +274,10 @@ $(document).ready(function(){
     
     console.log ("overdraft protection savings balance is: ", savingsBalance)
 
-    if (checkingBalance !== 0) {
+    if (checkingBalance > 0 && checkingBalance >= checkingWithdrawalInput) {
       
+      
+      console.log("checkingArray is: ", checkingArray);
       checkingBalance = checkingBalance - checkingWithdrawalInput;
       console.log("checkingBalance is: ", checkingBalance)    
       
@@ -249,7 +285,8 @@ $(document).ready(function(){
       if (checkingBalance === 0) {
         $("#checking-balance").css("background-color", "rgb(255, 62, 62)")
       }
-      
+      checkingArray.length = 0;
+      checkingArray.push(checkingBalance)
     }
     
     
@@ -260,20 +297,40 @@ $(document).ready(function(){
       console.log("checkingBalance: ", checkingBalance)
       
     }
+    // overdraft protection 1 - stop withdrawal, withdrawal amount is > savings balance
+    else if (checkingWithdrawalInput > checkingBalance && checkingWithdrawalInput > (savingsBalance + checkingBalance) ) {
+      console.log("checkingArray is (substracting) but invalid Two: ", array)
+      
+      return
+      
 
-    // // overdraft protection
-    else if (checkingBalance === 0 && savingsBalance > 0) {
-      
-      array.pop()
-      savingsBalance = savingsBalance - checkingWithdrawalInput;
-      console.log("SavingsBalance is: ", savingsBalance)    
-      
-      $("#savings-balance").text(`$ ${savingsBalance}`);
+    }
+
+    // overdraft protection 2 -taking from checking account if sufficient
+    else if (checkingWithdrawalInput <= (savingsBalance + checkingBalance)  ) {
+      checkingArray.pop();
+      console.log("checkingArray is (substracting)): ", checkingArray)
+      let checkingNegativeBalance = checkingBalance - checkingWithdrawalInput;
+      console.log("checkingNegativeBalance One is: ",checkingNegativeBalance)
+      checkingNegativeBalance = String(checkingNegativeBalance).replace(/-/g, "")
+      checkingNegativeBalance = Number(checkingNegativeBalance);
+      console.log("checkingNegativeBalance Two is: ",checkingNegativeBalance)
+      checkingBalance = 0;
+      $("#checking-balance").text(`$ ${checkingBalance}`);
+      if (savingsBalance >= checkingNegativeBalance) {
+        array.pop();
+        savingsBalance = savingsBalance - checkingNegativeBalance
+        $("#savings-balance").text(`$ ${savingsBalance}`);
+      }
       if (savingsBalance === 0) {
         $("#savings-balance").css("background-color", "rgb(255, 62, 62)")
       }
-          
-    }       
+      if (checkingBalance === 0) {
+        $("#checking-balance").css("background-color", "rgb(255, 62, 62)")
+      }
+      
+
+    }
 
   })
   
