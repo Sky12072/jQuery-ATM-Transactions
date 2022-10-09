@@ -16,7 +16,7 @@ $(document).ready(function(){
   let redOrNot = Number($("#savings-balance").val())
   
   if (redOrNot === 0) {
-    $("#savings-balance").css("background-color", "red")
+    $("#savings-balance").css("background-color", "rgb(255, 62, 62)")
     console.log("It's red saving account")
   }
 })
@@ -81,7 +81,7 @@ $(document).ready(function(){
     
     $("#savings-balance").text(`$ ${savingsBalance}`); // code for display value to webpage
     if (savingsBalance !== 0) {
-      $("#savings-balance").css("background-color", "grey")
+      $("#savings-balance").css("background-color", "rgb(175, 174, 174")
     }
     
     
@@ -105,7 +105,7 @@ $(document).ready(function(){
       
       $("#savings-balance").text(`$ ${savingsBalance}`);
       if (savingsBalance === 0) {
-        $("#savings-balance").css("background-color", "red")
+        $("#savings-balance").css("background-color", "rgb(255, 62, 62)")
       }
       
     }
@@ -127,7 +127,7 @@ $(document).ready(function(){
       
       $("#checking-balance").text(`$ ${checkingBalance}`);
       if (checkingBalance === 0) {
-        $("#checking-balance").css("background-color", "red")
+        $("#checking-balance").css("background-color", "rgb(255, 62, 62)")
       }
 
     }
@@ -157,7 +157,7 @@ $(document).ready(function(){
 $(document).ready(function(){
   let redOrNot = Number($("#checking-balance").val())
   if (redOrNot === 0) {
-    $("#checking-balance").css("background-color", "red")
+    $("#checking-balance").css("background-color", "rgb(255, 62, 62)")
     console.log("It's red checking account")
   }
 })
@@ -225,7 +225,7 @@ $(document).ready(function(){
     
     $("#checking-balance").text(`$ ${checkingBalance}`);
     if (checkingBalance !== 0) {
-      $("#checking-balance").css("background-color", "grey")
+      $("#checking-balance").css("background-color", "rgb(175, 174, 174")
     }
     
     
@@ -247,7 +247,7 @@ $(document).ready(function(){
       
       $("#checking-balance").text(`$ ${checkingBalance}`);
       if (checkingBalance === 0) {
-        $("#checking-balance").css("background-color", "red")
+        $("#checking-balance").css("background-color", "rgb(255, 62, 62)")
       }
       
     }
@@ -270,7 +270,7 @@ $(document).ready(function(){
       
       $("#savings-balance").text(`$ ${savingsBalance}`);
       if (savingsBalance === 0) {
-        $("#savings-balance").css("background-color", "red")
+        $("#savings-balance").css("background-color", "rgb(255, 62, 62)")
       }
           
     }       
