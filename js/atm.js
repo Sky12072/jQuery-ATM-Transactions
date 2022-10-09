@@ -27,7 +27,15 @@ $(document).ready(function(){
 // Get savings deposit input
 $(document).ready(function(){
   $("#savings-deposit").click(function(){
-    let savingsDepositInput = Number($("#savings-amount").val());
+    let savingsDepositInputString = $("#savings-amount").val();
+
+    // code to handle hyphens in input
+    if (savingsDepositInputString.includes("-")) {
+      savingsDepositInputString= savingsDepositInputString.replace(/-/g, "");
+      console.log (savingsDepositInputString)
+    }
+    let savingsDepositInput = Number(savingsDepositInputString)
+
     console.log (typeof savingsDepositInput)
     console.log (savingsDepositInput)
     array.push(savingsDepositInput)
@@ -43,10 +51,18 @@ $(document).ready(function(){
 // Get savings withdrawal input
 $(document).ready(function(){
   $("#savings-withdraw").click(function(){
-    savingsWithdrawalInput= $("#savings-amount").val();
+    let savingsWithdrawalInputString = $("#savings-amount").val();
+
+    // code to handle hyphens in input
+    if (savingsWithdrawalInputString.includes("-")) {
+      savingsWithdrawalInputString= savingsWithdrawalInputString.replace(/-/g, "");
+      console.log (savingsWithdrawalInputString)
+    }
+    savingsWithdrawalInput = Number(savingsWithdrawalInputString)
+
     array.pop();
-    console.log (typeof Number(savingsWithdrawalInput))
-    console.log (Number(savingsWithdrawalInput))
+    console.log (typeof savingsWithdrawalInput);
+    console.log (savingsWithdrawalInput)
     console.log("array is(withdrawal input): ", array)
   });
 });
@@ -151,7 +167,16 @@ let checkingArray = []
 // Get checking deposit input
 $(document).ready(function(){
   $("#checking-deposit").click(function(){
-    checkingDepositInput = Number($("#checking-amount").val());
+    let checkingDepositInputString = $("#checking-amount").val();
+
+    // code to handle hyphens in input
+    if (checkingDepositInputString.includes("-")) {
+      checkingDepositInputString = checkingDepositInputString.replace(/-/g, "");
+      console.log (checkingDepositInputString)
+    }
+    let checkingDepositInput = Number(checkingDepositInputString)
+
+
     console.log (typeof checkingDepositInput)
     console.log (checkingDepositInput)
     checkingArray.push(checkingDepositInput)
@@ -167,11 +192,19 @@ $(document).ready(function(){
 // Get checking withdrawal input
 $(document).ready(function(){
   $("#checking-withdraw").click(function(){
-    checkingWithdrawalInput= $("#checking-amount").val();
+    let checkingWithdrawalInputString = $("#checking-amount").val();
+
+    // code to handle hyphens in input
+    if (checkingWithdrawalInputString.includes("-")) {
+      checkingWithdrawalInputString = checkingWithdrawalInputString.replace(/-/g, "");
+      console.log (checkingWithdrawalInputString)
+    }
+    checkingWithdrawalInput = Number(checkingWithdrawalInputString)
+    
     checkingArray.pop();
-    console.log (typeof Number(checkingWithdrawalInput))
-    console.log (Number(checkingWithdrawalInput))
-    console.log("checkingArray is: ", checkingArray)
+    console.log (typeof checkingWithdrawalInput);
+    console.log (checkingWithdrawalInput);
+    console.log("checkingArray is: ", checkingArray);
   });
 });
 
