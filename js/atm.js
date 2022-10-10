@@ -143,12 +143,15 @@ $(document).ready(function(){
     else if (savingsWithdrawalInput <= (savingsBalance + checkingBalance)  ) {
       array.pop();
       console.log("array is (substracting)): ", array)
+
+      // code for handling negative balance 
       let savingsNegativeBalance = savingsBalance - savingsWithdrawalInput;
       console.log("savingsNegativeBalance One is: ",savingsNegativeBalance)
       savingsNegativeBalance = String(savingsNegativeBalance).replace(/-/g, "")
       savingsNegativeBalance = Number(savingsNegativeBalance);
       console.log("savingsNegativeBalance Two is: ",savingsNegativeBalance)
-      savingsBalance = 0;
+
+      savingsBalance = 0; // reset savingsBalance
       $("#savings-balance").text(`$ ${savingsBalance}`);
       if (checkingBalance >= savingsNegativeBalance) {
         array.pop();
@@ -310,12 +313,15 @@ $(document).ready(function(){
     else if (checkingWithdrawalInput <= (savingsBalance + checkingBalance)  ) {
       checkingArray.pop();
       console.log("checkingArray is (substracting)): ", checkingArray)
+
+      // code for handling negative balance 
       let checkingNegativeBalance = checkingBalance - checkingWithdrawalInput;
       console.log("checkingNegativeBalance One is: ",checkingNegativeBalance)
       checkingNegativeBalance = String(checkingNegativeBalance).replace(/-/g, "")
       checkingNegativeBalance = Number(checkingNegativeBalance);
       console.log("checkingNegativeBalance Two is: ",checkingNegativeBalance)
-      checkingBalance = 0;
+
+      checkingBalance = 0; // reset checkingBalance
       $("#checking-balance").text(`$ ${checkingBalance}`);
       if (savingsBalance >= checkingNegativeBalance) {
         array.pop();
