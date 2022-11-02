@@ -1,5 +1,16 @@
 # Title: ATM App
 
+ATM app is an imitation of bank accounts prototypes that consist of two accounts: savings account and cheque account.
+Customer can deposit and withdraw on both accounts. 
+
+When customer only has enough balance in one account, customer is allowed to withdraw money from that specific account only. 
+
+However, when the customer overdraft the saving account while the cheque account has enough balance, it will withdraw the remaining amount from the cheque account and vice versa. 
+
+### App link:
+
+https://jquery-atm.netlify.app/
+
 ### Type:
 - Lab
 
