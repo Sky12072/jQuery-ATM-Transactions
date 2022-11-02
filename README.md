@@ -1,17 +1,17 @@
-#Title: ATM App
+# Title: ATM App
 
-###Type:
+### Type:
 - Lab
 
-###Objectives:
+### Objectives:
 - jQuery DOM selection, appending, removal, updating
 
-###Summary
+### Summary
 - Practice JavaScript functions and manipulating the DOM with jQuery.
 - Selecting elements, manipulating HTML, and manipulating style along
 with building out the logic using JavaScript.
 
-###Specification:
+### Specification:
 
 * Keep track of the checking and savings balances somewhere
 * Add functionality so that a user can deposit money into one of the bank accounts.
